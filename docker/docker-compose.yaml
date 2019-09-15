@@ -7,3 +7,4 @@ services:
                 environment:
                         - MONGODB_USER="user"
                         - MONGODB_PASS="pass"
+                        - MONGODB_DATABASE="vertx-101"

@@ -1,8 +1,7 @@
 package com.playground.vertx
 
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import com.playground.vertx.verticle.MongoVerticle
 import com.playground.vertx.verticle.WebServerVerticle
 import io.vertx.core.Vertx
 import io.vertx.core.json.Json
@@ -12,7 +11,10 @@ fun main() {
     setUpJackson()
     val vertx = Vertx.vertx()
     vertx.deployVerticle(WebServerVerticle()) {
-        if (it.succeeded()) println("Verticle deployed, id: ${it.result()}")
+        if (it.succeeded()) println("WebServerVerticle deployed, id: ${it.result()}")
+    }
+    vertx.deployVerticle(MongoVerticle()) {
+        if (it.succeeded()) println("MongoVerticle deployed, id: ${it.result()}")
     }
 }
 

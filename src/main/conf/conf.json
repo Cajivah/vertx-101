@@ -1,6 +1,7 @@
 {
   "http.port": 8082,
-  "mongo.url": "mongodb://localhost:27017",
-  "mongo.user": "user",
-  "mongo.password": "pass"
+  "connection_string": "mongodb://localhost:27017",
+  "db_name": "vertx-101",
+  "username": "user",
+  "password": "pass"
 }
