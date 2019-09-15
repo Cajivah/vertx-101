@@ -1,0 +1,6 @@
+{
+  "http.port": 8082,
+  "mongo.url": "mongodb://localhost:27017",
+  "mongo.user": "user",
+  "mongo.password": "pass"
+}

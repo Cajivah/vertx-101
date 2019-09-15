@@ -9,6 +9,14 @@ import io.vertx.core.json.Json
 
 fun main() {
     println("Entered main function")
+    setUpJackson()
+    val vertx = Vertx.vertx()
+    vertx.deployVerticle(WebServerVerticle()) {
+        if (it.succeeded()) println("Verticle deployed, id: ${it.result()}")
+    }
+}
+
+private fun setUpJackson() {
     Json.mapper.apply {
         registerKotlinModule()
     }
@@ -16,6 +24,4 @@ fun main() {
     Json.prettyMapper.apply {
         registerKotlinModule()
     }
-    val vertx = Vertx.vertx()
-    vertx.deployVerticle(WebServerVerticle())
 }

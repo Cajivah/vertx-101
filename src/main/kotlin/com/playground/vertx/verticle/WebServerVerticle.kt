@@ -13,8 +13,9 @@ class WebServerVerticle : AbstractVerticle() {
     private var greetingController: GreetingController = GreetingController()
 
     override fun start(future: Promise<Void>) {
+        val port = config().getInteger("http.port", 8080)
         vertx.createHttpServer()
-                .requestHandler(createRouter()).listen(8080) { event: AsyncResult<HttpServer> ->
+                .requestHandler(createRouter()).listen(port) { event: AsyncResult<HttpServer> ->
                     if (event.succeeded()) {
                         future.complete()
                     } else {
