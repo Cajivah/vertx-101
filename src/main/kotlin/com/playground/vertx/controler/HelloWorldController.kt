@@ -1,4 +1,4 @@
-package com.playground.vertx.verticies
+package com.playground.vertx.controler
 
 import io.vertx.core.Vertx
 import io.vertx.ext.web.Router
@@ -12,7 +12,7 @@ class HelloWorldController {
         val router = Router.router(vertx)
         router.get("/world").handler { it.response().end("Hello world") }
         router.get().handler {it.response().end(greetings.toString())}
-        router.post().handler(this::sayHello)
+        router.post().handler(this::sayHello).consumes("application/json")
         return router
     }
 
