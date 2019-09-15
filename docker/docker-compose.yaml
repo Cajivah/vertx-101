@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+        mongo:
+                image: mongo:3.4-xenial
+                ports:
+                        - 27017:21017
+                environment:
+                        - MONGODB_USER="user"
+                        - MONGODB_PASS="pass"
