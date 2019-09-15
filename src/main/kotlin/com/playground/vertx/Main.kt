@@ -10,6 +10,7 @@ fun main() {
     println("Entered main function")
     setUpJackson()
     val vertx = Vertx.vertx()
+
     vertx.deployVerticle(WebServerVerticle()) {
         if (it.succeeded()) println("WebServerVerticle deployed, id: ${it.result()}")
     }
