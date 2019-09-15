@@ -11,7 +11,6 @@ class HelloWorld : AbstractVerticle() {
     private var helloWorldController: HelloWorldController = HelloWorldController()
 
     override fun start(future: Promise<Void>) {
-
         vertx.createHttpServer()
                 .requestHandler(createRouter()).listen(8080) { event: AsyncResult<HttpServer> ->
                     if (event.succeeded()) {
@@ -20,7 +19,6 @@ class HelloWorld : AbstractVerticle() {
                         future.fail(event.cause())
                     }
                 }
-
     }
 
     private fun createRouter(): Router {
