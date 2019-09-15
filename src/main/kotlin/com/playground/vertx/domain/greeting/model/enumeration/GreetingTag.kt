@@ -1,4 +1,4 @@
-package com.playground.vertx.model.enumeration
+package com.playground.vertx.domain.greeting.model.enumeration
 
 enum class GreetingTag {
     CASUAL,

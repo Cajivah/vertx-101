@@ -1,6 +1,6 @@
 package com.playground.vertx.verticle
 
-import com.playground.vertx.controler.HelloWorldController
+import com.playground.vertx.domain.greeting.controler.GreetingController
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.AsyncResult
 import io.vertx.core.Promise
@@ -10,7 +10,7 @@ import io.vertx.ext.web.handler.BodyHandler
 
 class WebServerVerticle : AbstractVerticle() {
 
-    private var helloWorldController: HelloWorldController = HelloWorldController()
+    private var greetingController: GreetingController = GreetingController()
 
     override fun start(future: Promise<Void>) {
         vertx.createHttpServer()
@@ -26,7 +26,7 @@ class WebServerVerticle : AbstractVerticle() {
     private fun createRouter(): Router {
         val router = Router.router(vertx)
         router.route().handler(BodyHandler.create())
-        router.mountSubRouter("/hello", helloWorldController.router(vertx))
+        router.mountSubRouter("/hello", greetingController.router(vertx))
         return router
     }
 }
