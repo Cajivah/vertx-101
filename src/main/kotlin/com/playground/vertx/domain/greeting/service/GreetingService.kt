@@ -9,7 +9,7 @@ class GreetingService {
 
     private var greetingRepository: GreetingRepository = GreetingRepository()
 
-    fun addGreeting(greeting: CreateGreetingDTO) {
+    fun addGreeting(greeting: CreateGreetingDTO): Greeting {
         val greetingEntity = Greeting(greeting, UUID.randomUUID())
         return greetingRepository.addGreeting(greetingEntity)
     }
