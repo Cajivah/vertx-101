@@ -26,7 +26,7 @@ class WebServerVerticle : AbstractVerticle() {
     private fun createRouter(): Router {
         val router = Router.router(vertx)
         router.route().handler(BodyHandler.create())
-        router.mountSubRouter("/hello", greetingController.router(vertx))
+        router.mountSubRouter("/greetings", greetingController.router(vertx))
         return router
     }
 }

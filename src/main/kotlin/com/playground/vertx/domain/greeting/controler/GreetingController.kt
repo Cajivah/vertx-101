@@ -12,7 +12,7 @@ class GreetingController {
 
     fun router(vertx: Vertx): Router {
         val router = Router.router(vertx)
-        router.get("/world").handler { it.response().end("Hello world") }
+        router.get("/test").handler { it.response().end("Hello world") }
         router.get().handler { it.response().end(Json.encodePrettily(greetingService.getGreetings())) }
         router.post().handler { greetingService.addGreeting(it.bodyAsJson.mapTo(Greeting::class.java)) }
         return router
