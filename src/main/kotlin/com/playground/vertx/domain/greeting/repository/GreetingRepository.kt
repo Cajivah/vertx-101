@@ -6,7 +6,7 @@ class GreetingRepository {
     private val greetings: MutableSet<Greeting> = mutableSetOf()
 
     fun addGreeting(greeting: Greeting): Greeting {
-        greetings.add(greeting)
+        vertx
         return greeting
     }
 

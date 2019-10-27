@@ -1,7 +1,35 @@
 version: '3.7'
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+
 services:
+
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./prometheus/:/etc/prometheus/
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yaml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    network_mode: host
+    restart: always
+
+  grafana:
+    image: grafana/grafana
+    user: "104"
+    depends_on:
+      - prometheus
+    volumes:
+      - grafana_data:/var/lib/grafana
+    network_mode: host
+    restart: always
+
   mongo:
     image: mongo:3.4-xenial
     restart: always
-    ports:
-      - 27017:27017
+    network_mode: host

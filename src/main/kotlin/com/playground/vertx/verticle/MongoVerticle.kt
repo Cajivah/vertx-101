@@ -1,12 +1,9 @@
 package com.playground.vertx.verticle
 
-import com.playground.vertx.domain.greeting.model.Greeting
-import com.playground.vertx.domain.greeting.model.enumeration.GreetingTag
+import com.playground.vertx.domain.greeting.model.MongoMessage
 import io.vertx.core.AbstractVerticle
 import io.vertx.core.Promise
-import io.vertx.core.json.JsonObject
 import io.vertx.ext.mongo.MongoClient
-import java.util.*
 
 class MongoVerticle : AbstractVerticle() {
 
@@ -14,19 +11,11 @@ class MongoVerticle : AbstractVerticle() {
 
     override fun start(promise: Promise<Void>) {
         mongo = MongoClient.createShared(vertx, config())
-        testInit()
+        vertx.eventBus().consumer<MongoMessage>(ADDRESS) { msg -> println("Msg received $msg")}
         promise.complete()
     }
 
-    private fun testInit() {
-        val greeting = Greeting("Hello world", setOf(GreetingTag.CASUAL), UUID.randomUUID())
-        mongo.insert("greetings", JsonObject.mapFrom(greeting))
-        {
-            if (it.succeeded()) {
-                println(it.result())
-            } else {
-                println(it.cause())
-            }
-        }
+    companion object {
+        const val ADDRESS = "mongo"
     }
 }

@@ -7,6 +7,7 @@ import io.vertx.core.Promise
 import io.vertx.core.http.HttpServer
 import io.vertx.ext.web.Router
 import io.vertx.ext.web.handler.BodyHandler
+import io.vertx.micrometer.PrometheusScrapingHandler
 
 class WebServerVerticle : AbstractVerticle() {
 
@@ -27,6 +28,8 @@ class WebServerVerticle : AbstractVerticle() {
     private fun createRouter(): Router {
         val router = Router.router(vertx)
         router.route().handler(BodyHandler.create())
+        router.route().handler { vertx.eventBus().publish("web.request", it.currentRoute().toString()) }
+
         router.mountSubRouter("/greetings", greetingController.router(vertx))
         return router
     }

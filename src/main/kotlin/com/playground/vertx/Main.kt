@@ -1,15 +1,18 @@
 package com.playground.vertx
 
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import com.playground.vertx.verticle.GreetingsServiceVerticle
 import com.playground.vertx.verticle.MongoVerticle
 import com.playground.vertx.verticle.WebServerVerticle
 import io.vertx.core.DeploymentOptions
-import io.vertx.core.Future
 import io.vertx.core.Vertx
-import io.vertx.core.buffer.Buffer
-import io.vertx.core.file.FileSystem
+import io.vertx.core.VertxOptions
 import io.vertx.core.json.Json
 import io.vertx.core.json.JsonObject
+import io.vertx.micrometer.VertxPrometheusOptions
+import io.vertx.micrometer.MicrometerMetricsOptions
+
+
 
 fun main() {
     val vertx = Vertx.vertx()
@@ -22,12 +25,14 @@ fun main() {
     vertx.deployVerticle(MongoVerticle(), deploymentOptions) {
         if (it.succeeded()) println("MongoVerticle deployed, id: ${it.result()}")
     }
+    vertx.deployVerticle(GreetingsServiceVerticle(), deploymentOptions) {
+        if (it.succeeded()) println("GreetingsServiceDeployed deployed, id: ${it.result()}")
+    }
 }
 
 private fun getDeploymentConfig(vertx: Vertx): DeploymentOptions? {
     val config: JsonObject = vertx.fileSystem().readFileBlocking("src/main/conf/conf.json").toJsonObject()
-    val deploymentOptions = DeploymentOptions().setConfig(config)
-    return deploymentOptions
+    return DeploymentOptions().setConfig(config)
 }
 
 private fun setUpJackson() {
