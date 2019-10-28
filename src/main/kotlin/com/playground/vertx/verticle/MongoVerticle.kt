@@ -14,8 +14,4 @@ class MongoVerticle : AbstractVerticle() {
         vertx.eventBus().consumer<MongoMessage>(ADDRESS) { msg -> println("Msg received $msg")}
         promise.complete()
     }
-
-    companion object {
-        const val ADDRESS = "mongo"
-    }
 }

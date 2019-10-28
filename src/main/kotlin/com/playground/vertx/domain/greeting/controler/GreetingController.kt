@@ -26,7 +26,8 @@ class GreetingController {
             if (it.succeeded()) {
                 val greetings = it.result().body()
                 routingContext.response()
-                        .putHeader("content-type", "application/json").end(Json.encodePrettily(greetings))
+                        .putHeader("content-type", "application/json")
+                        .end(Json.encodePrettily(greetings))
             }
         }
     }
@@ -44,5 +45,4 @@ class GreetingController {
             }
         }
     }
-
 }
